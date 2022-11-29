@@ -53,10 +53,9 @@
                         <li class="nav-item"><a class="nav-link" href="{{route ('admin.login')}}">Đăng nhập</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{route ('getRegister')}}">Đăng ký</a></li>
                         @endif
-                        <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-search"></i></a></li>
+                        <li class="nav-item"><a class="nav-link" data-toggle="modal" data-target="#modelSearch" ><i class="fas fa-search"></i></a></li>
                         <li class="nav-item"><button  data-toggle="modal" data-target="#exampleModal" class="nav-link" style="background-color:#212529; border:none; out-line:none;" >
                             <i class="fas fa-shopping-cart" ></i></button>
-                            
                         </li>
                         @if(Cart::count() == 0)
                         <li><span class="count-holder">
@@ -80,6 +79,7 @@
               
             </div>
     </header>
+
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -140,7 +140,22 @@
             </div>
         </div>
     </div>
-
+    
+    <div class="modal fade" id="modelSearch" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <form action="{{route('frontend.category.search')}}" method="post">
+        @csrf
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="model-header" style="height:50px;">
+                    <input class="form" name="searchText" id="textSearch" type="text" placeholder="Search.." style="margin-top:10px;margin-left:10px;border:none; outline: none;width:90%">
+                    <button type="submit" style="margin-top:10px;margin-right:10px;float:right;border:none;outline: none;">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        </form>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('js/scripts.js')}}"></script>
@@ -149,6 +164,14 @@
     <script>
         function showcart() {
             var x = document.getElementById("site-cart");
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
+        }
+        function showSearch() {
+            var x = document.getElementById("myInput");
             if (x.style.display === "none") {
                 x.style.display = "block";
             } else {

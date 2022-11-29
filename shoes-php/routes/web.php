@@ -38,6 +38,7 @@ Route::group(['namespace'=>'Frontend'], function(){
     Route::get('/send',[App\Http\Controllers\Frontend\CartController::class, 'send'])->name('frontend.cart.send');
     Route::get('/user',[App\Http\Controllers\Frontend\UserController::class, 'index'])->name('frontend.user')->middleware('auth');
     Route::post('/user/update',[App\Http\Controllers\Frontend\UserController::class, 'update_user'])->name('frontend.user.update')->middleware('auth');
+    Route::post('/search', [ProductController::class, 'searchProduct'])->name('frontend.category.search');
   
 });
 

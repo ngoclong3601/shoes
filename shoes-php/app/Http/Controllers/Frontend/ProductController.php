@@ -59,4 +59,18 @@ class ProductController extends Controller
             'product_size' => $product_size
         ]);
     }
+    public function searchProduct(Request $request) {
+        $categories = Category::all();
+        
+        $productsList = Category::join('products','categories.id','=','products.category_id')->paginate(6);
+
+        $search = $request->input('searchText');
+        $products = DB::table('products')->select('*')
+        ->where('product_name', 'like', '%' . $search . '%')->get();
+    
+        return view('frontend.home')->with([
+            'product' => $products,
+            'categories' => $categories
+        ]);
+    }
 }
